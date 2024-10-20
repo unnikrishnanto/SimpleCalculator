@@ -94,10 +94,17 @@ public class Operations {
 											// number
 					i--;
 				}
-				if (isSigned) {
-					isSigned = false; // for the first = or - deleted allow an insertion of sign(+ or -)
+				if (deletedChar == '-' && input.isEmpty()) { // handles an edge case of negative number obtained as a
+																// result or
+																// -ve number entered and deleted
+					isOpValid = false;
+					isSigned = false;
 				} else {
-					isOpValid = true; // executed when a + or - has been already deleted
+					if (isSigned) {
+						isSigned = false; // for the first = or - deleted allow an insertion of sign(+ or -)
+					} else {
+						isOpValid = true; // executed when a + or - has been already deleted
+					}
 				}
 			} else if (deletedChar == '/' || deletedChar == 'X') {
 				int i = input.length() - 1;
@@ -143,7 +150,8 @@ public class Operations {
 																					// (--,++ , +, -, X, /, .)
 					isOpValid = false; // set isOpValid to false should block further addition of an operator if it is
 										// set to true by previously deleted characters.
-					if (input.charAt(input.length() - 1) == '.'
+					if (input.charAt(input.length() - 1) == '.' || input.charAt(input.length() - 1) == '-'
+							|| input.charAt(input.length() - 1) == '+' //signed num is entered and deleted or  is a result
 							|| (input.length() >= 2 && !Character.isDigit(input.charAt(input.length() - 2))))
 						// check weather a sign should be allowed (current input should not end with a .
 						// or second char from last should be a digit not an operator like dX+, d/-,

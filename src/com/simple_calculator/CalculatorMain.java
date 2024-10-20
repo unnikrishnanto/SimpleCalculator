@@ -60,11 +60,7 @@ public class CalculatorMain extends JFrame {
 		clearButton.setFont(new Font("Arial Black", Font.PLAIN, 10));
 		clearButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// clearing the input
-				StringBuilder input = new StringBuilder(inputField.getText());
-				if(input.length() > 0) {
-					inputField.setText(String.valueOf(input.deleteCharAt(input.length()-1)));
-				}
+				inputField.setText(Operations.clear(inputField.getText()));
 			}
 		});
 		clearButton.setBounds(292, 59, 40, 40);
@@ -75,8 +71,8 @@ public class CalculatorMain extends JFrame {
 		button1.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters 1
-				inputField.setText(inputField.getText()+ "1");
+				inputField.setText(inputField.getText()+"1");
+				Operations.setIsOpValid();
 			}
 		});
 		button1.setBounds(28, 118, 50, 50);
@@ -86,8 +82,8 @@ public class CalculatorMain extends JFrame {
 		button2.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters 2
-				inputField.setText(inputField.getText()+ "2");
+				inputField.setText(inputField.getText()+"2");
+				Operations.setIsOpValid();
 			}
 		});
 		button2.setBounds(92, 118, 50, 50);
@@ -97,8 +93,8 @@ public class CalculatorMain extends JFrame {
 		button3.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters 3
-				inputField.setText(inputField.getText()+ "3");
+				inputField.setText(inputField.getText()+"3");
+				Operations.setIsOpValid();
 			}
 		});
 		button3.setBounds(159, 118, 50, 50);
@@ -109,8 +105,8 @@ public class CalculatorMain extends JFrame {
 		button4.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//enters 4
-				inputField.setText(inputField.getText()+ "4");
+				inputField.setText(inputField.getText()+"4");
+				Operations.setIsOpValid();
 			}
 		});
 		button4.setBounds(28, 185, 50, 50);
@@ -120,8 +116,8 @@ public class CalculatorMain extends JFrame {
 		button5.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//enters 5
-				inputField.setText(inputField.getText()+ "5");
+				inputField.setText(inputField.getText()+"5");
+				Operations.setIsOpValid();
 			}
 		});
 		button5.setBounds(92, 185, 50, 50);
@@ -131,8 +127,8 @@ public class CalculatorMain extends JFrame {
 		button6.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters 6
-				inputField.setText(inputField.getText()+ "6");
+				inputField.setText(inputField.getText()+"6");
+				Operations.setIsOpValid();
 			}
 		});
 		button6.setBounds(159, 185, 50, 50);
@@ -142,8 +138,8 @@ public class CalculatorMain extends JFrame {
 		button7.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//enters 7
 				inputField.setText(inputField.getText()+"7");
+				Operations.setIsOpValid();
 			}
 		});
 		button7.setBounds(28, 244, 50, 50);
@@ -153,8 +149,8 @@ public class CalculatorMain extends JFrame {
 		button8.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters 8
-				inputField.setText(inputField.getText()+ "8");
+				inputField.setText(inputField.getText()+"8");
+				Operations.setIsOpValid();
 			}
 		});
 		button8.setBounds(92, 244, 50, 50);
@@ -164,8 +160,8 @@ public class CalculatorMain extends JFrame {
 		button9.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//enters 9
-				inputField.setText(inputField.getText()+ "9");
+				inputField.setText(inputField.getText()+"9");
+				Operations.setIsOpValid();
 			}
 		});
 		button9.setBounds(159, 244, 50, 50);
@@ -175,8 +171,7 @@ public class CalculatorMain extends JFrame {
 		pointButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		pointButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters a decimal point
-				inputField.setText(inputField.getText()+ ".");
+				inputField.setText(Operations.addDot(inputField.getText()));
 			}
 		});
 		pointButton.setBounds(28, 304, 50, 50);
@@ -187,8 +182,8 @@ public class CalculatorMain extends JFrame {
 		button0.setFont(new Font("Arial Black", Font.BOLD, 20));
 		button0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters a zero
 				inputField.setText(inputField.getText()+"0");
+				Operations.setIsOpValid();
 			}
 		});
 		button0.setBounds(92, 304, 50, 50);
@@ -198,8 +193,7 @@ public class CalculatorMain extends JFrame {
 		subButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		subButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters a minus sign
-				inputField.setText(inputField.getText()+ "-");
+				inputField.setText(Operations.addSubSign(inputField.getText()));
 			}
 		});
 		subButton.setBounds(159, 304, 50, 50);
@@ -211,8 +205,7 @@ public class CalculatorMain extends JFrame {
 		addButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters a plus sign
-				inputField.setText(inputField.getText()+ "+");
+				inputField.setText(Operations.addAddSign(inputField.getText()));
 			}
 		});
 		addButton.setBounds(232, 120, 50, 50);
@@ -222,8 +215,7 @@ public class CalculatorMain extends JFrame {
 		mulButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		mulButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters a X sign
-				inputField.setText(inputField.getText()+ "X");
+				inputField.setText(Operations.addMulSign(inputField.getText()));
 			}
 		});
 		mulButton.setBounds(232, 185, 50, 50);
@@ -233,8 +225,7 @@ public class CalculatorMain extends JFrame {
 		divButton.setFont(new Font("Arial Black", Font.BOLD, 25));
 		divButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// enters a /
-				inputField.setText(inputField.getText()+ "/");
+				inputField.setText(Operations.addDivSign(inputField.getText()));
 			}
 		});
 		divButton.setBounds(232, 242, 50, 50);
@@ -244,8 +235,7 @@ public class CalculatorMain extends JFrame {
 		equalsButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		equalsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// prints the result
-				inputField.setText("Result");
+				inputField.setText(Operations.findResult(inputField.getText()));
 			}
 		});
 		equalsButton.setBounds(232, 304, 50, 50);

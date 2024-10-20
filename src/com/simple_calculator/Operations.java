@@ -150,8 +150,8 @@ public class Operations {
 																					// (--,++ , +, -, X, /, .)
 					isOpValid = false; // set isOpValid to false should block further addition of an operator if it is
 										// set to true by previously deleted characters.
-					if (input.charAt(input.length() - 1) == '.' || input.charAt(input.length() - 1) == '-'
-							|| input.charAt(input.length() - 1) == '+' //signed num is entered and deleted or  is a result
+					if (input.charAt(input.length() - 1) == '.' || (input.length() ==1 &(
+							input.charAt(input.length() - 1) == '-'|| input.charAt(input.length() - 1) == '+')) //signed num is entered and deleted or  is a result
 							|| (input.length() >= 2 && !Character.isDigit(input.charAt(input.length() - 2))))
 						// check weather a sign should be allowed (current input should not end with a .
 						// or second char from last should be a digit not an operator like dX+, d/-,

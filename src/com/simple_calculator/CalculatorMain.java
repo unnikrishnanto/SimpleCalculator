@@ -8,10 +8,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class CalculatorMain extends JFrame {
+public class CalculatorMain extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -53,6 +55,7 @@ public class CalculatorMain extends JFrame {
 		inputField.setEditable(false);
 		inputField.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		inputField.setBounds(28, 57, 254, 40);
+		inputField.addKeyListener(this);
 		contentPane.add(inputField);
 		inputField.setColumns(10);
 		
@@ -61,6 +64,7 @@ public class CalculatorMain extends JFrame {
 		clearButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(Operations.clear(inputField.getText()));
+				inputField.requestFocusInWindow(); //sends focus back to input field
 			}
 		});
 		clearButton.setBounds(292, 59, 40, 40);
@@ -73,6 +77,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"1");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button1.setBounds(28, 118, 50, 50);
@@ -84,6 +89,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"2");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button2.setBounds(92, 118, 50, 50);
@@ -95,6 +101,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"3");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button3.setBounds(159, 118, 50, 50);
@@ -107,6 +114,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"4");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button4.setBounds(28, 185, 50, 50);
@@ -118,6 +126,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"5");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button5.setBounds(92, 185, 50, 50);
@@ -129,6 +138,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"6");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button6.setBounds(159, 185, 50, 50);
@@ -140,6 +150,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"7");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button7.setBounds(28, 244, 50, 50);
@@ -151,6 +162,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"8");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button8.setBounds(92, 244, 50, 50);
@@ -162,6 +174,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"9");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button9.setBounds(159, 244, 50, 50);
@@ -172,6 +185,7 @@ public class CalculatorMain extends JFrame {
 		pointButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(Operations.addDot(inputField.getText()));
+				inputField.requestFocusInWindow();
 			}
 		});
 		pointButton.setBounds(28, 304, 50, 50);
@@ -184,6 +198,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(inputField.getText()+"0");
 				Operations.setIsOpValid();
+				inputField.requestFocusInWindow();
 			}
 		});
 		button0.setBounds(92, 304, 50, 50);
@@ -194,6 +209,7 @@ public class CalculatorMain extends JFrame {
 		subButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(Operations.addSubSign(inputField.getText()));
+				inputField.requestFocusInWindow();
 			}
 		});
 		subButton.setBounds(159, 304, 50, 50);
@@ -206,6 +222,7 @@ public class CalculatorMain extends JFrame {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(Operations.addAddSign(inputField.getText()));
+				inputField.requestFocusInWindow();
 			}
 		});
 		addButton.setBounds(232, 120, 50, 50);
@@ -216,6 +233,7 @@ public class CalculatorMain extends JFrame {
 		mulButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(Operations.addMulSign(inputField.getText()));
+				inputField.requestFocusInWindow();
 			}
 		});
 		mulButton.setBounds(232, 185, 50, 50);
@@ -226,6 +244,7 @@ public class CalculatorMain extends JFrame {
 		divButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(Operations.addDivSign(inputField.getText()));
+				inputField.requestFocusInWindow();
 			}
 		});
 		divButton.setBounds(232, 242, 50, 50);
@@ -236,9 +255,96 @@ public class CalculatorMain extends JFrame {
 		equalsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputField.setText(Operations.findResult(inputField.getText()));
+				inputField.requestFocusInWindow();
 			}
 		});
 		equalsButton.setBounds(232, 304, 50, 50);
 		contentPane.add(equalsButton);
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		switch(e.getKeyChar()) {
+		case '0':
+			inputField.setText(inputField.getText()+"0");
+			Operations.setIsOpValid();
+			break;
+		case '1':
+			inputField.setText(inputField.getText()+"1");
+			Operations.setIsOpValid();
+			break;
+		case '2':
+			inputField.setText(inputField.getText()+"2");
+			Operations.setIsOpValid();
+			break;
+		case '3':
+			inputField.setText(inputField.getText()+"3");
+			Operations.setIsOpValid();
+			break;
+		case '4':
+			inputField.setText(inputField.getText()+"4");
+			Operations.setIsOpValid();
+			break;
+		case '5':
+			inputField.setText(inputField.getText()+"5");
+			Operations.setIsOpValid();
+			break;
+		case '6':
+			inputField.setText(inputField.getText()+"6");
+			Operations.setIsOpValid();
+			break;
+		case '7':
+			inputField.setText(inputField.getText()+"7");
+			Operations.setIsOpValid();
+			break;
+		case '8':
+			inputField.setText(inputField.getText()+"8");
+			Operations.setIsOpValid();
+			break;
+		case '9':
+			inputField.setText(inputField.getText()+"9");
+			Operations.setIsOpValid();
+			break;
+		case '.':
+			inputField.setText(Operations.addDot(inputField.getText()));
+			break;
+		case '-':
+			inputField.setText(Operations.addSubSign(inputField.getText()));
+			break;
+		case '+':
+			inputField.setText(Operations.addAddSign(inputField.getText()));
+			break;
+		case '*':
+		case 'x':
+		case 'X':
+			inputField.setText(Operations.addMulSign(inputField.getText()));
+			break;
+		case '/':
+			inputField.setText(Operations.addDivSign(inputField.getText()));
+			break;
+		case '=':
+		case '\n':
+			inputField.setText(Operations.findResult(inputField.getText()));
+			break;
+		case '\b':
+			inputField.setText(Operations.clear(inputField.getText()));
+		    break;
+		default:
+			System.out.println("Entered character is " + e.getKeyChar());
+		}
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 127)
+			inputField.setText(Operations.clear(inputField.getText()));
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
 	}
 }

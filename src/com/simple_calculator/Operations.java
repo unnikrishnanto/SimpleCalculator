@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Operations {
 
-	static boolean isOpValid;
-	static boolean isDotValid;
-	static boolean isSigned;
+	private static boolean isOpValid; // if true an operand can be added
+	private static boolean isDotValid;// if true a dot can be added
+	private static boolean isSigned; // the current number is a signed number
 	static {
 		isOpValid = false;
 		isDotValid = true;
@@ -28,50 +28,26 @@ public class Operations {
 		return input;
 	}
 
-	public static String addAddSign(String input) {
+	public static String addAddOrSubSign(String input, char operator) {
 		if (isOpValid) {
 			isOpValid = false;
 			isDotValid = true;
 			isSigned = false;
-			return input + "+";
+			return input + operator;
 		}
 		if (!isSigned) {
 			isSigned = true;
-			return input + "+";
+			return input + operator;
 		}
 		return input;
 	}
 
-	public static String addSubSign(String input) {
+	public static String addMulOrDivSign(String input, char operator) {
 		if (isOpValid) {
 			isOpValid = false;
 			isDotValid = true;
 			isSigned = false;
-			return input + "-";
-		}
-		if (!isSigned) {
-			isSigned = true;
-			return input + "-";
-		}
-		return input;
-	}
-
-	public static String addMulSign(String input) {
-		if (isOpValid) {
-			isOpValid = false;
-			isDotValid = true;
-			isSigned = false;
-			return input + "X";
-		}
-		return input;
-	}
-
-	public static String addDivSign(String input) {
-		if (isOpValid) {
-			isOpValid = false;
-			isDotValid = true;
-			isSigned = false;
-			return input + "/";
+			return input + operator;
 		}
 		return input;
 	}
@@ -85,80 +61,98 @@ public class Operations {
 				isDotValid = true;
 				isSigned = false;
 				return "";
-			} else if (deletedChar == '+' || deletedChar == '-') { // if the deleted character is + or - operators
-				int i = input.length() - 1; // loop back to check weather a dot is already present before finding
-											// another operator
-				while (i >= 1 && Character.isDigit(input.charAt(i))) { // as long as a digit is found
-					if (input.charAt(i - 1) == '.')
-						isDotValid = false; // set isDotvalid to false indicating a dot is not present in the current
-											// number
-					i--;
-				}
-				if (deletedChar == '-' && input.isEmpty()) { // handles an edge case of negative number obtained as a
-																// result or
-																// -ve number entered and deleted
-					isOpValid = false;
-					isSigned = false;
-				} else {
+			} else {
+				switch (deletedChar) {
+				case '+':
+				case '-': {
+					int i = input.length() - 1; // loop back to check weather a dot is already present before finding
+													// another operator
+					while (i >= 1 && Character.isDigit(input.charAt(i))) { // as long as a digit is found
+						if (input.charAt(i - 1) == '.')
+							isDotValid = false; // set isDotvalid to false indicating a dot is not present in the
+												  // current number
+						i--;
+					}
 					if (isSigned) {
-						isSigned = false; // for the first = or - deleted allow an insertion of sign(+ or -)
+						isSigned = false; // for the first + or - deleted, allow an insertion of sign(+ or -)
 					} else {
 						isOpValid = true; // executed when a + or - has been already deleted
 					}
 				}
-			} else if (deletedChar == '/' || deletedChar == 'X') {
-				int i = input.length() - 1;
-				while (i > 0 && Character.isDigit(input.charAt(i))) { // check for a dot before allowing another dot
-					if (input.charAt(i - 1) == '.')
-						isDotValid = false;
-					i--;
-				}
-				isOpValid = true; // allow user to enter another operator
-			} else if (deletedChar == '.') {
-				isDotValid = true; // if a dot is removed another one can be entered
-				if (input.isEmpty()) { // if dot was the first character then only allow a + or - sign
-					isSigned = false;
-				} else { // check
-					switch (input.charAt(input.length() - 1)) { // now check the current last character
-					case 'X':
-					case '/':
-						isSigned = false; // if its a X or / a sign can be added
-						break;
-					case '+':
-					case '-': { // for a + or - check if its ending with -- or ++ if true skip
-								// if not(it is a d+, d-, dX-, d/- ) allow a sign
-						if (input.length() >= 2 && (input.charAt(input.length() - 2) != '+'
-								&& input.charAt(input.length() - 2) != '-')) {
-							isSigned = false;
-						}
-					}
-						break;
-					default: // the last element is a digit
-						isOpValid = true;
-					}
+					break;
 
+				case '/':
+				case 'X': {
+					int i = input.length() - 1;
+					while (i > 0 && Character.isDigit(input.charAt(i))) { // check for a dot before allowing another dot
+						if (input.charAt(i - 1) == '.')
+							isDotValid = false;
+						i--;
+					}
+					isOpValid = true; // allow user to enter another operator
 				}
-			} else { // if the deleted character is a digit
-				if (input.isEmpty()) { // if its the last digit
-					isOpValid = false; // set isOpValid to false to revert isOpValid=true set by entering it the first
-										// time
-					isSigned = false; // set isSigned to false to add signed numbers in the start
-				} else if (!Character.isDigit(input.charAt(input.length() - 1))) {// if deleted one is not the last
-																					// digit
-																					// and the character on the
-																					// end of current string is in
-																					// (--,++ , +, -, X, /, .)
-					isOpValid = false; // set isOpValid to false should block further addition of an operator if it is
-										// set to true by previously deleted characters.
-					if (input.charAt(input.length() - 1) == '.' || (input.length() ==1 &(
-							input.charAt(input.length() - 1) == '-'|| input.charAt(input.length() - 1) == '+')) //signed num is entered and deleted or  is a result
-							|| (input.length() >= 2 && !Character.isDigit(input.charAt(input.length() - 2))))
-						// check weather a sign should be allowed (current input should not end with a .
-						// or second char from last should be a digit not an operator like dX+, d/-,
-						// d++, d--)
-						isSigned = true;
-					else
+					break;
+				case '.': {
+					isDotValid = true; // if a dot is removed another one can be entered
+					if (input.isEmpty()) { // if dot was the first character then only allow a + or - sign
 						isSigned = false;
+					} else { // check
+						switch (input.charAt(input.length() - 1)) { // now check the current last character
+						case 'X':
+						case '/':
+							isSigned = false; // if its a X or / a sign can be added
+							break;
+						case '+':
+						case '-': { // for a + or - check if its ending with -- or ++ if true skip
+									// if not(it is a d+, d-, dX-, d/- ) allow a sign
+							if (input.length() >= 2 && (input.charAt(input.length() - 2) != '+'
+									&& input.charAt(input.length() - 2) != '-')) {
+								isSigned = false;
+							}
+						}
+							break;
+						default: // the last element is a digit
+							isOpValid = true;
+						}
+
+					}
+				}
+					break;
+				default: { // if the deleted character is a digit
+					if (input.isEmpty()) { // if its the last digit
+						isOpValid = false; // set isOpValid to false to revert isOpValid=true set by entering it the
+											// first
+											// time
+						isSigned = false; // set isSigned to false to add signed numbers in the start
+					} else if (!Character.isDigit(input.charAt(input.length() - 1))) {// if deleted one is not the last
+																						// digit
+																						// and the character on the
+																						// end of current string is in
+																						// (--,++ , +, -, X, /, .)
+						isOpValid = false; // set isOpValid to false should block further addition of an operator if it
+											// is
+											// set to true by previously deleted characters.
+						if (input.charAt(input.length() - 1) == '.' || (input.length() == 1
+								&& (input.charAt(input.length() - 1) == '-' || input.charAt(input.length() - 1) == '+')) // signed
+																															// num
+																															// is
+																															// entered
+																															// and
+																															// deleted
+																															// or
+																															// is
+																															// a
+																															// result
+								|| (input.length() >= 2 && !Character.isDigit(input.charAt(input.length() - 2))))
+							// check weather a sign should be allowed (current input should not end with a .
+							// or second char from last should be a digit not an operator like dX+, d/-,
+							// d++, d--)
+							isSigned = true;
+						else
+							isSigned = false;
+					}
+				}
+
 				}
 			}
 			return input;
@@ -207,15 +201,11 @@ public class Operations {
 
 	private static String calculate(ArrayList<String> a) {
 		for (int i = 0; i < a.size(); i++) {
-			String operator = a.get(i);
-			if (operator.equals("X")) {
-				a.set(i, String.valueOf(Double.parseDouble(a.get(i - 1)) * Double.parseDouble(a.get(i + 1))));
-				a.remove(i - 1);
+			switch (a.get(i)) {
+			case "X":
+			case "/":
+				a.set(i - 1, operate(a.get(i - 1), a.get(i + 1), a.get(i)));
 				a.remove(i);
-				i--;
-			} else if (operator.equals("/")) {
-				a.set(i, String.valueOf(Double.parseDouble(a.get(i - 1)) / Double.parseDouble(a.get(i + 1))));
-				a.remove(i - 1);
 				a.remove(i);
 				i--;
 			}
@@ -225,17 +215,14 @@ public class Operations {
 				System.out.println("ERROR");
 				return a.get(i);
 			} else {
-				String operator = a.get(i);
-				if (operator.equals("+")) {
-					a.set(i, String.valueOf(Double.parseDouble(a.get(i - 1)) + Double.parseDouble(a.get(i + 1))));
-					a.remove(i - 1);
+				switch (a.get(i)) {
+				case "+":
+				case "-":
+					a.set(i - 1, operate(a.get(i - 1), a.get(i + 1), a.get(i)));
+					a.remove(i);
 					a.remove(i);
 					i--;
-				} else if (operator.equals("-")) {
-					a.set(i, String.valueOf(Double.parseDouble(a.get(i - 1)) - Double.parseDouble(a.get(i + 1))));
-					a.remove(i - 1);
-					a.remove(i);
-					i--;
+					break;
 				}
 			}
 		}
@@ -245,4 +232,24 @@ public class Operations {
 		return a.get(0);
 	}
 
+	private static String operate(String operand1, String operand2, String operator) {
+		double op1 = Double.parseDouble(operand1);
+		double op2 = Double.parseDouble(operand2);
+		double result = 0;
+		switch (operator) {
+		case "+":
+			result = op1 + op2;
+			break;
+		case "-":
+			result = op1 - op2;
+			break;
+		case "X":
+			result = op1 * op2;
+			break;
+		case "/":
+			result = op1 / op2;
+			break;
+		}
+		return String.valueOf(result);
+	}
 }

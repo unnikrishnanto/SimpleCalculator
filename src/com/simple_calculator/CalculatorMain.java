@@ -208,7 +208,7 @@ public class CalculatorMain extends JFrame implements KeyListener{
 		subButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		subButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputField.setText(Operations.addSubSign(inputField.getText()));
+				inputField.setText(Operations.addAddOrSubSign(inputField.getText(), '-'));
 				inputField.requestFocusInWindow();
 			}
 		});
@@ -221,7 +221,7 @@ public class CalculatorMain extends JFrame implements KeyListener{
 		addButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputField.setText(Operations.addAddSign(inputField.getText()));
+				inputField.setText(Operations.addAddOrSubSign(inputField.getText(), '+'));
 				inputField.requestFocusInWindow();
 			}
 		});
@@ -232,7 +232,7 @@ public class CalculatorMain extends JFrame implements KeyListener{
 		mulButton.setFont(new Font("Arial Black", Font.BOLD, 20));
 		mulButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputField.setText(Operations.addMulSign(inputField.getText()));
+				inputField.setText(Operations.addMulOrDivSign(inputField.getText(), 'X'));
 				inputField.requestFocusInWindow();
 			}
 		});
@@ -243,7 +243,7 @@ public class CalculatorMain extends JFrame implements KeyListener{
 		divButton.setFont(new Font("Arial Black", Font.BOLD, 25));
 		divButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputField.setText(Operations.addDivSign(inputField.getText()));
+				inputField.setText(Operations.addMulOrDivSign(inputField.getText(), '/'));
 				inputField.requestFocusInWindow();
 			}
 		});
@@ -310,18 +310,18 @@ public class CalculatorMain extends JFrame implements KeyListener{
 			inputField.setText(Operations.addDot(inputField.getText()));
 			break;
 		case '-':
-			inputField.setText(Operations.addSubSign(inputField.getText()));
+			inputField.setText(Operations.addAddOrSubSign(inputField.getText(), '-'));
 			break;
 		case '+':
-			inputField.setText(Operations.addAddSign(inputField.getText()));
+			inputField.setText(Operations.addAddOrSubSign(inputField.getText(), '+'));
 			break;
 		case '*':
 		case 'x':
 		case 'X':
-			inputField.setText(Operations.addMulSign(inputField.getText()));
+			inputField.setText(Operations.addMulOrDivSign(inputField.getText(), 'X'));
 			break;
 		case '/':
-			inputField.setText(Operations.addDivSign(inputField.getText()));
+			inputField.setText(Operations.addMulOrDivSign(inputField.getText(), '/'));
 			break;
 		case '=':
 		case '\n':
@@ -330,8 +330,6 @@ public class CalculatorMain extends JFrame implements KeyListener{
 		case '\b':
 			inputField.setText(Operations.clear(inputField.getText()));
 		    break;
-		default:
-			System.out.println("Entered character is " + e.getKeyChar());
 		}
 	}
 

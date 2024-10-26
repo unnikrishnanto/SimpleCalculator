@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -56,6 +57,7 @@ public class CalculatorMain extends JFrame implements KeyListener{
 		inputField.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		inputField.setBounds(28, 57, 254, 40);
 		inputField.addKeyListener(this);
+		inputField.setHorizontalAlignment(SwingConstants.RIGHT); // set the input to the right of input field.
 		contentPane.add(inputField);
 		inputField.setColumns(10);
 		
